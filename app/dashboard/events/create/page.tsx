@@ -2,7 +2,7 @@ import React from 'react'
 
 function Page() {
   return (
-    <div>Participants</div>
+    <div>Create Event</div>
   )
 }
 

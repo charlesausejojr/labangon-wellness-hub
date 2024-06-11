@@ -1,4 +1,4 @@
-import { PowerIcon } from '@heroicons/react/24/outline'
+import { PowerIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -25,6 +25,14 @@ function Sidenav() {
         </div>
         <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
             <NavLinks />
+            {/* If Admin */}
+            <Link
+                href="/dashboard/manage_users"
+                className='flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-slate-100 p-3 text-sm font-medium hover:bg-rose-100 hover:text-rose-600 md:flex-none md:justify-start md:p-2 md:px-3'
+            >
+                <UserGroupIcon className="w-6" />
+                <p className="hidden md:block">Manage Users</p>
+            </Link>
             <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
             <form
             /* </div>action={async () => {
@@ -32,7 +40,7 @@ function Sidenav() {
                 await signOut();
             }}*/
             >
-            <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-rose-100 hover:text-rose-600 md:flex-none md:justify-start md:p-2 md:px-3">
+            <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-slate-100 p-3 text-sm font-medium hover:bg-rose-100 hover:text-rose-600 md:flex-none md:justify-start md:p-2 md:px-3">
                 <PowerIcon className="w-6" />
                 <div className="hidden md:block">Sign Out</div>
             </button>

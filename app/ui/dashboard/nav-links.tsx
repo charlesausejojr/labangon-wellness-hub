@@ -14,7 +14,6 @@ import clsx from 'clsx';
 const links = [
     { name: 'Home', href: '/dashboard', icon: HomeIcon},
     { name: 'Events', href: '/dashboard/events', icon: CalendarDaysIcon},
-    { name: 'Participants', href: '/dashboard/participants', icon: UserGroupIcon},
     { name: 'Settings', href: '/dashboard/settings', icon: Cog8ToothIcon},
 ]
 function NavLinks() {
@@ -28,7 +27,7 @@ function NavLinks() {
                         key={link.name}
                         href={link.href}
                         className={clsx(
-                        'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-rose-100 hover:text-rose-600 md:flex-none md:justify-start md:p-2 md:px-3',
+                        'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-slate-100 p-3 text-sm font-medium hover:bg-rose-100 hover:text-rose-600 md:flex-none md:justify-start md:p-2 md:px-3',
                         {
                             'bg-rose-100 text-rose-600': pathname === link.href,
                         },
