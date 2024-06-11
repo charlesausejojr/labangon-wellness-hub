@@ -3,7 +3,7 @@ import { fetchEvents } from '@/lib/data'
 import Link from 'next/link';
 import { LinkIcon } from '@heroicons/react/16/solid';
 import { CreateEvent } from '@/app/ui/dashboard/events/buttons';
-import { type Event } from '@prisma/client';
+import { Event } from '.prisma/client';
 
 async function Page() {
   const events : Event[]  = await fetchEvents(); 
