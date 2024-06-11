@@ -1,7 +1,6 @@
 import React from 'react'
 import { fetchEvents } from '@/lib/data'
 import Link from 'next/link';
-import clsx from 'clsx';
 import { LinkIcon } from '@heroicons/react/16/solid';
 import { CreateEvent } from '@/app/ui/dashboard/events/buttons';
 import { Event } from '@prisma/client';
