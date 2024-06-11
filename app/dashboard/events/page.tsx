@@ -4,9 +4,10 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { LinkIcon } from '@heroicons/react/16/solid';
 import { CreateEvent } from '@/app/ui/dashboard/events/buttons';
+import { Event } from '@prisma/client';
 
 async function Page() {
-  const events = await fetchEvents(); 
+  const events : Event[]  = await fetchEvents(); 
   return (
     <>
     <div className='m-3 flex flex-row justify-between items-center mb-4'>
