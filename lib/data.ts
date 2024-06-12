@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client'
 import { unstable_noStore as noStore } from 'next/cache'
-const prisma = new PrismaClient()
+import prisma from './prisma';
 
 export async function fetchUsers() {
     // Add noStore() here to prevent the response from being cached.
