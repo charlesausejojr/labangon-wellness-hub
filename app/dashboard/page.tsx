@@ -2,7 +2,9 @@ import React from 'react'
 
 async function Page() {
     return (
-        <div>Dashboard</div>
+        <div>
+            Dashboard
+        </div>
     )
 }
 
