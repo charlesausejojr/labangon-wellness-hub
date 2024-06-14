@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { fetchEventById, isUserRegisteredToEvent } from '@/lib/data'
+import { fetchEventById, fetchRegisteredCount, isUserRegisteredToEvent } from '@/lib/data'
 import { format } from "date-fns"
 import moment from 'moment'
 import AppAvatar from '@/app/ui/app-avatar';
 import { RegisterToEvent } from '@/app/ui/dashboard/events/buttons';
 import { registerToEvent } from '@/lib/actions';
 import { PencilIcon } from '@heroicons/react/24/outline';
+import { currentUser } from '@clerk/nextjs/server';
 
 function getDaysToNow(date : Date) {
     // const momentDate = moment().format(formattedDate);
@@ -21,6 +22,7 @@ function getDaysToNow(date : Date) {
 
 
 async function Page({ params }: { params: { id: string } }) {
+    const user = await currentUser();
     const eventId = params.id;
     const event = await fetchEventById(eventId);
     const eventDate = event?.date || new Date();
@@ -29,7 +31,8 @@ async function Page({ params }: { params: { id: string } }) {
 
     const registerToEventById = registerToEvent.bind(null, eventId);
     const isUserRegistered = await isUserRegisteredToEvent(eventId);
-
+    const isAuthor = event?.creatorId == user?.id;
+    const registeredCount = await fetchRegisteredCount(eventId);
     return (
         <div className=''>
             <div className='flex flex-row justify-between'>
@@ -45,8 +48,9 @@ async function Page({ params }: { params: { id: string } }) {
                         <span className="text-rose-700">{" "}Event Finished</span>
                     }
                     <span>Created By: {event?.creator?.firstName ?? "Anonymous"}</span>
+                    <span>Users Registered: {registeredCount == 0 ? "None" : registeredCount}</span>
                 </div>
-                {fromNow && !isUserRegistered &&
+                {fromNow && !isUserRegistered && !isAuthor &&
                     <form action={registerToEventById}
                         className='flex flex-col'
                     >
@@ -59,7 +63,7 @@ async function Page({ params }: { params: { id: string } }) {
                         </button>
                     </form>
                 }
-                {isUserRegistered && 
+                {isUserRegistered && !isAuthor && 
                     // TODO: Add unregister
                     <div>Unregister</div>
                 }

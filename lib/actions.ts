@@ -6,6 +6,7 @@ import { currentUser } from '@clerk/nextjs/server';
 import prisma from "@/lib/prisma";
 import { nullable, z } from 'zod';
 import { User } from '@/src/generated/cliet';
+import { randomUUID } from 'crypto';
 
 
 const FormSchema = z.object({
@@ -102,13 +103,13 @@ export async function registerToEvent(eventId : string) {
             id: user?.id,
         }
     });
-
+    console.log(user);
     if (!fetchedUser) {
         fetchedUser = await prisma.user.create({
             data : {
                 id: user?.id,
-                externalId: user?.externalId || "",
-                firstName: user?.firstName || "",
+                externalId: user?.externalId || randomUUID(),
+                firstName: user?.firstName || "Anonymous",
                 lastName: user?.lastName || "",
                 email: user?.emailAddresses[0].emailAddress || "",
                 image: user?.imageUrl || "",

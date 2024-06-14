@@ -48,6 +48,53 @@ export async function fetchEvents() {
 
 }
 
+export async function fetchEventsByQuery(query : string){
+    try {
+        const events = await prisma.event.findMany({
+            where: {
+                OR: [
+                    {
+                        title: {
+                            contains: query,
+                            mode: 'insensitive', // Default value: default
+                        },
+                    },
+                    {
+                        description: {
+                            contains: query,
+                            mode: 'insensitive', // Default value: default
+                        },
+                    },
+                    {
+                        creator: {
+                            OR: [
+                                { 
+                                    firstName: {
+                                        contains: query,
+                                        mode: 'insensitive', // Default value: default
+                                    },
+                                    lastName: {
+                                        contains: query,
+                                        mode: 'insensitive', // Default value: default
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ] 
+            },
+            include: {
+                creator: true,
+            }
+        });
+        return events;
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch event.');
+    }
+
+}
+
 export async function fetchEventById(eventId : string){
     try {
         const event = await prisma.event.findUnique({
@@ -63,7 +110,6 @@ export async function fetchEventById(eventId : string){
         console.error('Database Error:', error);
         throw new Error('Failed to fetch event.');
     }
-
 }
 
 export async function isUserRegisteredToEvent(eventId: string) {
@@ -91,6 +137,23 @@ export async function isUserRegisteredToEvent(eventId: string) {
         }
         return false;
     } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch event.');
+    }
+}
+
+export async function fetchRegisteredCount(eventId: string) {
+    try {
+        const event = await prisma.event.findUnique({
+            where: {
+                id: eventId
+            },
+            include: {
+                attendees: true,
+            }
+        });
+        return event?.attendees.length;
+    } catch(error){
         console.error('Database Error:', error);
         throw new Error('Failed to fetch event.');
     }

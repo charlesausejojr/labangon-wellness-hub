@@ -6,9 +6,11 @@ import NavLinks from './nav-links'
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { currentUser } from '@clerk/nextjs/server'
+import { fetchAdminOrFacilitator } from '@/lib/data'
 
 async function Sidenav() {
     const user = await currentUser();
+    const isAdminOrFacilitator = await fetchAdminOrFacilitator();
     return (
         <div className='flex h-full flex-col px-3 py-4 md:px-2'>
             <div className='bg-slate-100 flex h-20 rounded-md my-2'>
@@ -31,13 +33,15 @@ async function Sidenav() {
                 <SignedIn>
                     <NavLinks />
                     {/* If Admin */}
-                    <Link
-                        href="/dashboard/manage_users"
-                        className='flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-slate-100 p-3 text-sm font-medium hover:bg-rose-100 hover:text-rose-600 md:flex-none md:justify-start md:p-2 md:px-3'
-                    >
-                        <UserGroupIcon className="w-6" />
-                        <p className="hidden md:block">Manage Users</p>
-                    </Link>
+                    {isAdminOrFacilitator &&
+                        <Link
+                            href="/dashboard/manage_users"
+                            className='flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-slate-100 p-3 text-sm font-medium hover:bg-rose-100 hover:text-rose-600 md:flex-none md:justify-start md:p-2 md:px-3'
+                        >
+                            <UserGroupIcon className="w-6" />
+                            <p className="hidden md:block">Manage Users</p>
+                        </Link>
+                    }
                 </SignedIn>
                 <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
                 <SignedIn>
