@@ -39,7 +39,6 @@ export async function fetchEvents() {
                 }
             }
         });
-        // TODO: add where date is equal or greater than now
         return events;
     } catch (error) {
         console.error('Database Error:', error);
@@ -156,5 +155,23 @@ export async function fetchRegisteredCount(eventId: string) {
     } catch(error){
         console.error('Database Error:', error);
         throw new Error('Failed to fetch event.');
+    }
+}
+
+export async function fetchAttendedEvents() {
+    const user = await currentUser();
+    try {
+        const userDB = await prisma.user.findUnique({
+            where : {
+                id: user?.id,
+            },
+            include: {
+                attendedEvents: true,
+            }
+        });
+        return userDB?.attendedEvents || [];
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch attended events.');
     }
 }

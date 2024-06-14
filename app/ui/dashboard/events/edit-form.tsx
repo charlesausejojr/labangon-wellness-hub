@@ -14,10 +14,13 @@ import {
     PopoverTrigger,
   } from "@/components/ui/popover";
 import { CalendarIcon } from '@heroicons/react/24/outline';
-import { createEvent } from '@/lib/actions';
+import { updateEvent } from '@/lib/actions';
+import { Event } from '@/src/generated/cliet'
 import { toast , Toaster} from "sonner";
 
-function CreateForm() {
+function EditForm(
+    { event } : { event : Event}
+) {
 
     const handleSubmit = async (formData:FormData) : Promise<void> =>  {
         const hour = Number(formData.get("time")?.toString().split(":")[0]) || 0;
@@ -26,21 +29,20 @@ function CreateForm() {
         date.setHours(hour,min);
         const formattedDate = date.toISOString();
 
-        // console.log(date);
-        // console.log(formattedDate);
-        // console.log(format(formattedDate,'MMMM do yyyy, hh:mm:ss a'));
-
         formData.append("date",formattedDate);
-        await createEvent(formData);
+        formData.append("id",event?.id);
+        await updateEvent(formData);
     }
-    const [date, setDate] = useState(new Date());
+
+    const [date, setDate] = useState(event?.date);
+    const eventTime = format(event?.date, 'hh:mm:ss') 
     return (
         <form action={(formData) => {
             const promise = handleSubmit(formData);
             toast.promise(promise, {
-                loading: "Creating event...",
-                success: "Event Created!",
-                error: "Error creating event",});
+                loading: "Submitting changes...",
+                success: "Changes submitted!",
+                error: "Error submitting changes",});
             }}
         >
             <div>
@@ -60,6 +62,7 @@ function CreateForm() {
                     className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     aria-describedby="title-error"
                     required={true}
+                    defaultValue={event?.title || ""}
                 />
                 <label
                     htmlFor='description'
@@ -73,6 +76,7 @@ function CreateForm() {
                     placeholder="Enter event description"
                     className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     required={true}
+                    defaultValue={event?.description || ""}
                 />
                 <div className='block w-full my-2'>
                     <label
@@ -126,6 +130,7 @@ function CreateForm() {
                         aria-label="time" 
                         type="time" 
                         required={true}
+                        defaultValue={eventTime}
                     /> 
                 </div>
             </div>
@@ -137,4 +142,4 @@ function CreateForm() {
     )
 }
 
-export default CreateForm
+export default EditForm

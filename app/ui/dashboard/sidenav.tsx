@@ -46,7 +46,7 @@ async function Sidenav() {
                 <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
                 <SignedIn>
                     <div
-                        className="flex h-[75px] w-full grow items-center justify-center gap-2 rounded-md text-black bg-slate-100 p-3 text-sm font-medium hover:bg-rose-100 hover:text-rose-600 md:flex-none md:justify-start md:p-2 md:px-3"
+                        className="flex h-[48px] md:h-[75px] w-full grow items-center justify-center gap-2 rounded-md text-black bg-slate-100 p-3 text-sm font-medium hover:bg-rose-100 hover:text-rose-600 md:flex-none md:justify-start md:p-2 md:px-3"
                     >
                         <UserButton/>
                         <div className='m-2 text-md'>

@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { fetchEventById, fetchRegisteredCount, isUserRegisteredToEvent } from '@/lib/data'
 import { format } from "date-fns"
 import moment from 'moment'
-import AppAvatar from '@/app/ui/app-avatar';
-import { RegisterToEvent } from '@/app/ui/dashboard/events/buttons';
-import { registerToEvent } from '@/lib/actions';
-import { PencilIcon } from '@heroicons/react/24/outline';
+import { registerToEvent, unregisterToEvent } from '@/lib/actions';
+import { MinusCircleIcon, PencilIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import { currentUser } from '@clerk/nextjs/server';
+import Link from 'next/link';
 
 function getDaysToNow(date : Date) {
     // const momentDate = moment().format(formattedDate);
@@ -29,10 +28,12 @@ async function Page({ params }: { params: { id: string } }) {
     const formattedDate = format(eventDate, "MMMM do yyyy, hh:mm a");
     const fromNow = getDaysToNow(eventDate);
 
+    const unregisterToEventById = unregisterToEvent.bind(null, eventId);
     const registerToEventById = registerToEvent.bind(null, eventId);
     const isUserRegistered = await isUserRegisteredToEvent(eventId);
     const isAuthor = event?.creatorId == user?.id;
     const registeredCount = await fetchRegisteredCount(eventId);
+
     return (
         <div className=''>
             <div className='flex flex-row justify-between'>
@@ -64,8 +65,27 @@ async function Page({ params }: { params: { id: string } }) {
                     </form>
                 }
                 {isUserRegistered && !isAuthor && 
-                    // TODO: Add unregister
-                    <div>Unregister</div>
+                    <form action={unregisterToEventById}
+                        className='flex flex-col'
+                    >
+                        <button 
+                            type='submit'
+                            className="w-fit justify-center flex h-10 items-center rounded-lg bg-rose-400 px-4 text-sm font-medium text-white transition-colors hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
+                        >
+                            <span className="hidden md:block">Unregister</span>{' '}
+                            <MinusCircleIcon className="h-5 md:ml-4" />
+                        </button>
+                    </form>
+                }
+                { fromNow && isAuthor && 
+                    <Link
+                        href={`/dashboard/events/${event?.id}/edit`}
+                        className="w-fit justify-center flex h-10 items-center rounded-lg bg-rose-400 px-4 text-sm font-medium text-white transition-colors hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
+                    >
+                        <span>Edit Event</span>
+                        <PencilSquareIcon className='w-4 h-4 ml-2'/>
+                    </Link>
+
                 }
             </div>
             <hr/>

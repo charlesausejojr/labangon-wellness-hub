@@ -95,6 +95,53 @@ export async function createEvent(formData: FormData) {
     redirect("/dashboard/events");
 }
 
+export async function updateEvent(formData: FormData) {
+    const validatedFields = FormSchema.safeParse({
+        id: formData.get("id"),
+        title: formData.get("title"),
+        description: formData.get("description"),
+        date: formData.get("date")
+    });
+    
+    // If form validation fails, return errors early. Otherwise, continue.
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Missing Fields. Failed to Create Invoice.',
+        };
+    }
+
+    const user = await currentUser();
+
+    const fetchedUser = await prisma.user.findUnique({
+        where : {
+            id: user?.id,
+        }
+    });
+
+    const { title, description, date, id } = validatedFields.data;
+
+    try {
+        const event = await prisma.event.update({
+            where:{
+                id: id,
+            },
+            data : {
+                title: title,
+                description: description,
+                date: date,
+            }
+        });
+    } catch (error) {
+        // If a database error occurs, return a more specific error.
+        return {
+            message: 'Database Error: Failed to Create Event.',
+        };
+    }
+    revalidatePath(`/dashboard/events/${id}`);
+    redirect(`/dashboard/events/${id}`);
+}
+
 export async function registerToEvent(eventId : string) {
     const user = await currentUser();
 
@@ -103,7 +150,7 @@ export async function registerToEvent(eventId : string) {
             id: user?.id,
         }
     });
-    console.log(user);
+
     if (!fetchedUser) {
         fetchedUser = await prisma.user.create({
             data : {
@@ -133,6 +180,50 @@ export async function registerToEvent(eventId : string) {
         // If a database error occurs, return a more specific error.
         return {
             message: 'Database Error: Failed to Register to Event.',
+        };
+    }
+    revalidatePath(`/dashboard/events/${eventId}`);
+    redirect(`/dashboard/events/${eventId}`);
+}
+
+export async function unregisterToEvent(eventId : string) {
+    const user = await currentUser();
+
+    let fetchedUser = await prisma.user.findUnique({
+        where : {
+            id: user?.id,
+        }
+    });
+
+    if (!fetchedUser) {
+        fetchedUser = await prisma.user.create({
+            data : {
+                id: user?.id,
+                externalId: user?.externalId || randomUUID(),
+                firstName: user?.firstName || "Anonymous",
+                lastName: user?.lastName || "",
+                email: user?.emailAddresses[0].emailAddress || "",
+                image: user?.imageUrl || "",
+            }
+        })
+    }
+
+    try {
+        const eventUpdate = await prisma.event.update({
+            where: {
+                id: eventId,
+            },
+            data : {
+                attendees : {
+                    disconnect: [fetchedUser],
+                },
+            },
+        })
+
+    } catch(error) {
+        // If a database error occurs, return a more specific error.
+        return {
+            message: 'Database Error: Failed to Unregister to Event.',
         };
     }
     revalidatePath(`/dashboard/events/${eventId}`);
