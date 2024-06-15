@@ -3,6 +3,7 @@
 import { unstable_noStore as noStore } from 'next/cache'
 import prisma from './prisma';
 import { currentUser } from '@clerk/nextjs/server';
+import { randomUUID } from 'crypto';
 
 
 export async function fetchAdminOrFacilitator() {
@@ -174,4 +175,33 @@ export async function fetchAttendedEvents() {
         console.error('Database Error:', error);
         throw new Error('Failed to fetch attended events.');
     }
+}
+
+export async function fetchDBUser() {
+    const user = await currentUser();
+
+    try {
+        let fetchedUser = await prisma.user.findUnique({
+            where : {
+                id: user?.id,
+            }
+        });
+        if (!fetchedUser) {
+            fetchedUser = await prisma.user.create({
+                data : {
+                    id: user?.id,
+                    externalId: user?.externalId || randomUUID(),
+                    firstName: user?.firstName || "Anonymous",
+                    lastName: user?.lastName || "",
+                    email: user?.emailAddresses[0].emailAddress || "",
+                    image: user?.imageUrl || "",
+                }
+            })
+        }
+        return fetchedUser;
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch DB user.');
+    }
+
 }

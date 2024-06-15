@@ -128,7 +128,8 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   image: 'image',
   birthdate: 'birthdate',
-  address: 'address'
+  address: 'address',
+  phoneNumber: 'phoneNumber'
 };
 
 exports.Prisma.EventScalarFieldEnum = {

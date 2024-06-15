@@ -20,7 +20,27 @@ const FormSchema = z.object({
     }),
 });
 
+const SettingSchema = z.object({
+    id: z.string(),
+    firstName: z.string({
+        invalid_type_error: 'Please enter first name.',
+    }),
+    lastName: z.string({
+        invalid_type_error: 'Please enter last name.',
+    }),
+    address: z.string({
+        invalid_type_error: 'Please enter address.',
+    }),
+    birthdate: z.string({
+        invalid_type_error: "Please enter date."
+    }),
+    phoneNumber: z.string({
+        invalid_type_error: "Please enter phone number."
+    }),
+});
+
 const CreateEvent = FormSchema.omit({ id : true });
+const UpdateUser = SettingSchema.omit({ id : true });
 
 export type State = {
     errors?: {
@@ -229,3 +249,39 @@ export async function unregisterToEvent(eventId : string) {
     revalidatePath(`/dashboard/events/${eventId}`);
     redirect(`/dashboard/events/${eventId}`);
 }
+
+
+export async function updateDBUser(formData : FormData) {
+    const user = await currentUser();
+ 
+    const {firstName, lastName, phoneNumber, address, birthdate} = UpdateUser.parse({
+        firstName: formData.get("firstName"),
+        lastName: formData.get("lastName"),
+        phoneNumber: formData.get("phoneNumber"),
+        address: formData.get("address"),
+        birthdate: formData.get("birthdate"),
+    });
+
+    try {
+        const userUpdate = await prisma.user.update({
+            where : {
+                id: user?.id,
+            },
+            data: {
+                firstName: firstName,
+                lastName: lastName,
+                phoneNumber: phoneNumber,
+                address: address,
+                birthdate: birthdate,
+            }
+        });
+        console.log(phoneNumber);
+    } catch(error) {
+        return {
+            message: 'Database Error: Failed to Update User.',
+        };
+    }
+    revalidatePath(`/dashboard/settings`);
+    redirect(`/dashboard`);
+}
+

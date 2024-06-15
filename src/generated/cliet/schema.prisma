@@ -25,6 +25,7 @@ model User {
   image          String
   birthdate      DateTime?
   address        String?
+  phoneNumber    String?
   attendedEvents Event[]
   createdEvents  Event[]   @relation("EventCreator")
 

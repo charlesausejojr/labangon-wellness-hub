@@ -1072,6 +1072,7 @@ export namespace Prisma {
     image: string | null
     birthdate: Date | null
     address: string | null
+    phoneNumber: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1084,6 +1085,7 @@ export namespace Prisma {
     image: string | null
     birthdate: Date | null
     address: string | null
+    phoneNumber: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1096,6 +1098,7 @@ export namespace Prisma {
     image: number
     birthdate: number
     address: number
+    phoneNumber: number
     _all: number
   }
 
@@ -1110,6 +1113,7 @@ export namespace Prisma {
     image?: true
     birthdate?: true
     address?: true
+    phoneNumber?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1122,6 +1126,7 @@ export namespace Prisma {
     image?: true
     birthdate?: true
     address?: true
+    phoneNumber?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1134,6 +1139,7 @@ export namespace Prisma {
     image?: true
     birthdate?: true
     address?: true
+    phoneNumber?: true
     _all?: true
   }
 
@@ -1219,6 +1225,7 @@ export namespace Prisma {
     image: string
     birthdate: Date | null
     address: string | null
+    phoneNumber: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1248,6 +1255,7 @@ export namespace Prisma {
     image?: boolean
     birthdate?: boolean
     address?: boolean
+    phoneNumber?: boolean
     attendedEvents?: boolean | User$attendedEventsArgs<ExtArgs>
     createdEvents?: boolean | User$createdEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1263,6 +1271,7 @@ export namespace Prisma {
     image?: boolean
     birthdate?: boolean
     address?: boolean
+    phoneNumber?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1275,6 +1284,7 @@ export namespace Prisma {
     image?: boolean
     birthdate?: boolean
     address?: boolean
+    phoneNumber?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1300,6 +1310,7 @@ export namespace Prisma {
       image: string
       birthdate: Date | null
       address: string | null
+      phoneNumber: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1731,6 +1742,7 @@ export namespace Prisma {
     readonly image: FieldRef<"User", 'String'>
     readonly birthdate: FieldRef<"User", 'DateTime'>
     readonly address: FieldRef<"User", 'String'>
+    readonly phoneNumber: FieldRef<"User", 'String'>
   }
     
 
@@ -3147,7 +3159,8 @@ export namespace Prisma {
     role: 'role',
     image: 'image',
     birthdate: 'birthdate',
-    address: 'address'
+    address: 'address',
+    phoneNumber: 'phoneNumber'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3267,6 +3280,7 @@ export namespace Prisma {
     image?: StringFilter<"User"> | string
     birthdate?: DateTimeNullableFilter<"User"> | Date | string | null
     address?: StringNullableFilter<"User"> | string | null
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     attendedEvents?: EventListRelationFilter
     createdEvents?: EventListRelationFilter
   }
@@ -3281,6 +3295,7 @@ export namespace Prisma {
     image?: SortOrder
     birthdate?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     attendedEvents?: EventOrderByRelationAggregateInput
     createdEvents?: EventOrderByRelationAggregateInput
   }
@@ -3298,6 +3313,7 @@ export namespace Prisma {
     image?: StringFilter<"User"> | string
     birthdate?: DateTimeNullableFilter<"User"> | Date | string | null
     address?: StringNullableFilter<"User"> | string | null
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     attendedEvents?: EventListRelationFilter
     createdEvents?: EventListRelationFilter
   }, "id" | "externalId" | "email">
@@ -3312,6 +3328,7 @@ export namespace Prisma {
     image?: SortOrder
     birthdate?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -3330,6 +3347,7 @@ export namespace Prisma {
     image?: StringWithAggregatesFilter<"User"> | string
     birthdate?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     address?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type EventWhereInput = {
@@ -3410,6 +3428,7 @@ export namespace Prisma {
     image: string
     birthdate?: Date | string | null
     address?: string | null
+    phoneNumber?: string | null
     attendedEvents?: EventCreateNestedManyWithoutAttendeesInput
     createdEvents?: EventCreateNestedManyWithoutCreatorInput
   }
@@ -3424,6 +3443,7 @@ export namespace Prisma {
     image: string
     birthdate?: Date | string | null
     address?: string | null
+    phoneNumber?: string | null
     attendedEvents?: EventUncheckedCreateNestedManyWithoutAttendeesInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatorInput
   }
@@ -3438,6 +3458,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     attendedEvents?: EventUpdateManyWithoutAttendeesNestedInput
     createdEvents?: EventUpdateManyWithoutCreatorNestedInput
   }
@@ -3452,6 +3473,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     attendedEvents?: EventUncheckedUpdateManyWithoutAttendeesNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatorNestedInput
   }
@@ -3466,6 +3488,7 @@ export namespace Prisma {
     image: string
     birthdate?: Date | string | null
     address?: string | null
+    phoneNumber?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -3478,6 +3501,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -3490,6 +3514,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EventCreateInput = {
@@ -3638,6 +3663,7 @@ export namespace Prisma {
     image?: SortOrder
     birthdate?: SortOrder
     address?: SortOrder
+    phoneNumber?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -3650,6 +3676,7 @@ export namespace Prisma {
     image?: SortOrder
     birthdate?: SortOrder
     address?: SortOrder
+    phoneNumber?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -3662,6 +3689,7 @@ export namespace Prisma {
     image?: SortOrder
     birthdate?: SortOrder
     address?: SortOrder
+    phoneNumber?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -4209,6 +4237,7 @@ export namespace Prisma {
     image: string
     birthdate?: Date | string | null
     address?: string | null
+    phoneNumber?: string | null
     attendedEvents?: EventCreateNestedManyWithoutAttendeesInput
   }
 
@@ -4222,6 +4251,7 @@ export namespace Prisma {
     image: string
     birthdate?: Date | string | null
     address?: string | null
+    phoneNumber?: string | null
     attendedEvents?: EventUncheckedCreateNestedManyWithoutAttendeesInput
   }
 
@@ -4240,6 +4270,7 @@ export namespace Prisma {
     image: string
     birthdate?: Date | string | null
     address?: string | null
+    phoneNumber?: string | null
     createdEvents?: EventCreateNestedManyWithoutCreatorInput
   }
 
@@ -4253,6 +4284,7 @@ export namespace Prisma {
     image: string
     birthdate?: Date | string | null
     address?: string | null
+    phoneNumber?: string | null
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatorInput
   }
 
@@ -4282,6 +4314,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     attendedEvents?: EventUpdateManyWithoutAttendeesNestedInput
   }
 
@@ -4295,6 +4328,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     attendedEvents?: EventUncheckedUpdateManyWithoutAttendeesNestedInput
   }
 
@@ -4327,6 +4361,7 @@ export namespace Prisma {
     image?: StringFilter<"User"> | string
     birthdate?: DateTimeNullableFilter<"User"> | Date | string | null
     address?: StringNullableFilter<"User"> | string | null
+    phoneNumber?: StringNullableFilter<"User"> | string | null
   }
 
   export type EventCreateManyCreatorInput = {
@@ -4407,6 +4442,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdEvents?: EventUpdateManyWithoutCreatorNestedInput
   }
 
@@ -4420,6 +4456,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdEvents?: EventUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
@@ -4433,6 +4470,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
