@@ -67,7 +67,6 @@ export async function createEvent(formData: FormData) {
     }
 
     const user = await currentUser();
-
     const fetchedUser = await prisma.user.findUnique({
         where : {
             id: user?.id,
