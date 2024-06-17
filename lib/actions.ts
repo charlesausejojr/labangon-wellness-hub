@@ -4,9 +4,9 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation'
 import { currentUser } from '@clerk/nextjs/server';
 import prisma from "@/lib/prisma";
-import { nullable, z } from 'zod';
-import { User } from '@/src/generated/cliet';
+import { z } from 'zod';
 import { randomUUID } from 'crypto';
+import { Role, User } from "@/src/generated/cliet"
 
 
 const FormSchema = z.object({
@@ -160,6 +160,38 @@ export async function updateEvent(formData: FormData) {
     }
     revalidatePath(`/dashboard/events/${id}`);
     redirect(`/dashboard/events/${id}`);
+}
+
+export async function updateUserRole(userId : string, userRole : string){
+    let roleDB : Role = Role.BASIC;
+    switch(userRole) {
+        case "BASIC":
+            roleDB = Role.BASIC;
+            break;
+        case "ADMIN":
+            roleDB = Role.ADMIN;
+            break;
+        case "FACILITATOR":
+            roleDB = Role.FACILITATOR;
+            break;
+    }
+
+    try {
+        const user = await prisma.user.update({
+            where: {
+                id : userId,
+            },
+            data : {
+                role: roleDB,
+            }
+        });
+    } catch (error) {
+        return {
+            message: 'Database Error: Failed to update user role.',
+        };
+    }
+    revalidatePath(`/dashboard/manage_users/${userId}/manage`);
+    redirect(`/dashboard/manage_users/${userId}/manage`);
 }
 
 export async function registerToEvent(eventId : string) {

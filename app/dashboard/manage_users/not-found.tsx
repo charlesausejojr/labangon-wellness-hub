@@ -5,8 +5,8 @@ function NotFound() {
   return (
     <>
       <CustomNotFound
-        name='event'
-        path='/dashboard/events'
+        name='user'
+        path='/dashboard/manage_users'
       />
     </>
   )

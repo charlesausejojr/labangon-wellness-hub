@@ -1,5 +1,6 @@
 'use server';
 
+import { auth } from '@clerk/nextjs/server';
 import { unstable_noStore as noStore } from 'next/cache'
 import prisma from './prisma';
 import { currentUser } from '@clerk/nextjs/server';
@@ -21,6 +22,46 @@ export async function fetchAdminOrFacilitator() {
         return false;
     }
     return true;
+}
+
+export async function isAdmin() {
+    // Add noStore() here to prevent the response from being cached.
+    // This is equivalent to in fetch(..., {cache: 'no-store'}).
+    // This will prevent loading
+    const user = await currentUser();
+    const userDB = await prisma.user.findFirst({
+        where: {
+            id: user?.id,
+            role: 'ADMIN',
+        },
+    });
+    if (!userDB) {
+        return false;
+    }
+    return true;
+}
+
+export async function fetchUsers(){
+    auth().protect(); // only authenticated users can use this function
+    const user = await currentUser();
+
+    try{
+        const isAdmin = await prisma.user.findUnique({
+            where: {
+                id: user?.id,
+                role: 'ADMIN',
+            }
+        })
+
+        if (isAdmin) {
+            const users = await prisma.user.findMany();
+            return users;
+        }
+        return [];
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch events.');
+    }
 }
 
 export async function fetchEvents() {
@@ -49,18 +90,13 @@ export async function fetchEvents() {
 }
 
 export async function fetchEventsByQuery(query : string){
+    noStore();
     try {
         const events = await prisma.event.findMany({
             where: {
                 OR: [
                     {
                         title: {
-                            contains: query,
-                            mode: 'insensitive', // Default value: default
-                        },
-                    },
-                    {
-                        description: {
                             contains: query,
                             mode: 'insensitive', // Default value: default
                         },
@@ -94,8 +130,53 @@ export async function fetchEventsByQuery(query : string){
     }
 
 }
+export async function fetchUsersByQuery(query : string){
+    noStore();
+    console.log(query)
+    try{
+        const users = await prisma.user.findMany({
+            where : {
+                OR : [
+                    {
+                        firstName: {
+                            contains: query,
+                            mode: 'insensitive', // Default value: default
+                        },
+                    },
+                    {
+                        lastName: {
+                            contains: query,
+                            mode: 'insensitive', // Default value: default
+                        },
+                    }
+                ]
+            },
+        });
+        console.log(users);
+        return users;
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch users.');
+    }
+}
+
+export async function fetchUserById(userId : string){
+    noStore();
+    try{
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId,
+            },
+        });
+        return user;
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch user.');
+    }
+}
 
 export async function fetchEventById(eventId : string){
+    noStore();
     try {
         const event = await prisma.event.findUnique({
             where: {
@@ -160,17 +241,34 @@ export async function fetchRegisteredCount(eventId: string) {
 }
 
 export async function fetchAttendedEvents() {
+    auth().protect();
+    noStore();
     const user = await currentUser();
     try {
-        const userDB = await prisma.user.findUnique({
+        const fetchedUser = await prisma.user.findUnique({
             where : {
-                id: user?.id,
+                id  : user?.id,
             },
-            include: {
+            include : {
                 attendedEvents: true,
             }
         });
-        return userDB?.attendedEvents || [];
+
+        // Create User if not in DB
+        if (!fetchedUser) {
+            const userDB = await prisma.user.create({
+                data : {
+                    id: user?.id,
+                    externalId: user?.externalId || "",
+                    firstName: user?.firstName || "",
+                    lastName: user?.lastName || "",
+                    email: user?.emailAddresses[0].emailAddress || "",
+                    image: user?.imageUrl || "",
+                }
+            })
+        }
+
+        return fetchedUser?.attendedEvents || [];
     } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to fetch attended events.');
@@ -178,8 +276,8 @@ export async function fetchAttendedEvents() {
 }
 
 export async function fetchDBUser() {
+    noStore();
     const user = await currentUser();
-
     try {
         let fetchedUser = await prisma.user.findUnique({
             where : {

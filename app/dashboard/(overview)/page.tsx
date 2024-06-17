@@ -1,7 +1,7 @@
 import { fetchAdminOrFacilitator, fetchAttendedEvents, fetchEvents } from '@/lib/data';
 import { Event } from '@/src/generated/cliet';
 import React from 'react'
-import EventCards from '../ui/event-cards';
+import EventCards from '../../ui/event-cards';
 import { currentUser } from '@clerk/nextjs/server';
 
 async function Page() {

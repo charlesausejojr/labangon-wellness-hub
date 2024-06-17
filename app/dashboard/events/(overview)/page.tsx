@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { fetchEvents, fetchAdminOrFacilitator, fetchEventsByQuery} from '@/lib/data'
 import Link from 'next/link';
 import { LinkIcon } from '@heroicons/react/16/solid';
@@ -8,6 +8,8 @@ import { useUser } from '@clerk/nextjs';
 import Search from '@/app/ui/search';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import EventCards from '@/app/ui/event-cards';
+import { Skeleton } from '@/components/ui/skeleton';
+import { EventCardsSkeleton } from '@/app/ui/skeletons';
 
 async function Page( {
   searchParams,
@@ -18,10 +20,12 @@ async function Page( {
       };
   }
 ) {
+
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
   const events : Event[]  = await fetchEventsByQuery(query); 
   const isAdminOrFacilitator = await fetchAdminOrFacilitator();
+
   return (
     <>
     <div className='flex flex-row justify-between items-center'>

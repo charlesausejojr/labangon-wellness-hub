@@ -47,7 +47,7 @@ function EditForm(
         >
             <div>
                 <div className='my-3 font-bold text-lg'>
-                    Create Event
+                    Edit Event
                 </div>
                 <label
                     htmlFor='title'

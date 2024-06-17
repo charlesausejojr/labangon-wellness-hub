@@ -3,9 +3,13 @@ import { fetchEventById, fetchRegisteredCount, isUserRegisteredToEvent } from '@
 import { format } from "date-fns"
 import moment from 'moment'
 import { registerToEvent, unregisterToEvent } from '@/lib/actions';
-import { MinusCircleIcon, PencilIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { currentUser } from '@clerk/nextjs/server';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { Toaster, toast } from 'sonner';
+import { register } from 'module';
+import { RegisterToEvent, UnregisterToEvent } from '@/app/ui/dashboard/events/buttons';
 
 function getDaysToNow(date : Date) {
     // const momentDate = moment().format(formattedDate);
@@ -22,14 +26,18 @@ function getDaysToNow(date : Date) {
 
 async function Page({ params }: { params: { id: string } }) {
     const user = await currentUser();
+
     const eventId = params.id;
     const event = await fetchEventById(eventId);
+
+    if (!event) {
+        notFound();
+    }
+
     const eventDate = event?.date || new Date();
     const formattedDate = format(eventDate, "MMMM do yyyy, hh:mm a");
     const fromNow = getDaysToNow(eventDate);
 
-    const unregisterToEventById = unregisterToEvent.bind(null, eventId);
-    const registerToEventById = registerToEvent.bind(null, eventId);
     const isUserRegistered = await isUserRegisteredToEvent(eventId);
     const isAuthor = event?.creatorId == user?.id;
     const registeredCount = await fetchRegisteredCount(eventId);
@@ -52,30 +60,13 @@ async function Page({ params }: { params: { id: string } }) {
                     <span>Users Registered: {registeredCount == 0 ? "None" : registeredCount}</span>
                 </div>
                 {fromNow && !isUserRegistered && !isAuthor &&
-                    <form action={registerToEventById}
-                        className='flex flex-col'
-                    >
-                        <button 
-                            type='submit'
-                            className="w-fit justify-center flex h-10 items-center rounded-lg bg-rose-400 px-4 text-sm font-medium text-white transition-colors hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
-                        >
-                            <span className="hidden md:block">Register</span>{' '}
-                            <PencilIcon className="h-5 md:ml-4" />
-                        </button>
-                    </form>
+                    /* This is on another file that is a client component since 
+                       we are handling a loading toast that needs a client component  
+                    */
+                    <RegisterToEvent eventId={eventId}/>
                 }
                 {isUserRegistered && !isAuthor && 
-                    <form action={unregisterToEventById}
-                        className='flex flex-col'
-                    >
-                        <button 
-                            type='submit'
-                            className="w-fit justify-center flex h-10 items-center rounded-lg bg-rose-400 px-4 text-sm font-medium text-white transition-colors hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
-                        >
-                            <span className="hidden md:block">Unregister</span>{' '}
-                            <MinusCircleIcon className="h-5 md:ml-4" />
-                        </button>
-                    </form>
+                    <UnregisterToEvent eventId={eventId}/>
                 }
                 { fromNow && isAuthor && 
                     <Link
@@ -92,6 +83,7 @@ async function Page({ params }: { params: { id: string } }) {
             <div className='my-3 text-md'>
                 {event?.description}
             </div>
+            <Toaster richColors/>
         </div>
     )
 }
