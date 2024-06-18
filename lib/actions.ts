@@ -6,7 +6,7 @@ import { currentUser } from '@clerk/nextjs/server';
 import prisma from "@/lib/prisma";
 import { z } from 'zod';
 import { randomUUID } from 'crypto';
-import { Role, User } from "@/src/generated/cliet"
+import { Role, User } from "@/src/generated/client"
 
 
 const FormSchema = z.object({
@@ -15,8 +15,11 @@ const FormSchema = z.object({
         invalid_type_error: 'Please enter title.',
     }),
     description: z.string(),
-    date: z.string({
-        invalid_type_error: "Please enter date."
+    startDate: z.string({
+        invalid_type_error: "Please enter start date."
+    }),
+    endDate: z.string({
+        invalid_type_error: "Please enter end date."
     }),
 });
 
@@ -55,7 +58,8 @@ export async function createEvent(formData: FormData) {
     const validatedFields = CreateEvent.safeParse({
         title: formData.get("title"),
         description: formData.get("description"),
-        date: formData.get("date")
+        startDate: formData.get("startDate"),
+        endDate: formData.get("endDate")
     });
     
     // If form validation fails, return errors early. Otherwise, continue.
@@ -87,7 +91,7 @@ export async function createEvent(formData: FormData) {
         })
     }
 
-    const { title, description, date } = validatedFields.data;
+    const { title, description, startDate, endDate } = validatedFields.data;
     const createdAt = new Date().toISOString();
 
     try {
@@ -95,7 +99,8 @@ export async function createEvent(formData: FormData) {
             data: {
                 title: title,
                 description: description,
-                date: date,
+                startDate: startDate,
+                endDate: endDate,
                 createdAt: createdAt,
                 creator: {
                     connect : {
@@ -119,7 +124,8 @@ export async function updateEvent(formData: FormData) {
         id: formData.get("id"),
         title: formData.get("title"),
         description: formData.get("description"),
-        date: formData.get("date")
+        startDate: formData.get("startDate"),
+        endDate: formData.get("endDate")
     });
     
     // If form validation fails, return errors early. Otherwise, continue.
@@ -138,7 +144,7 @@ export async function updateEvent(formData: FormData) {
         }
     });
 
-    const { title, description, date, id } = validatedFields.data;
+    const { title, description, startDate, endDate, id } = validatedFields.data;
 
     try {
         const event = await prisma.event.update({
@@ -148,7 +154,8 @@ export async function updateEvent(formData: FormData) {
             data : {
                 title: title,
                 description: description,
-                date: date,
+                startDate: startDate,
+                endDate: endDate
             }
         });
     } catch (error) {

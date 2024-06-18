@@ -1,7 +1,7 @@
 
 import { UserCards } from '@/app/ui/dashboard/manage_users/user-card';
 import { fetchUsers, fetchUsersByQuery, isAdmin } from '@/lib/data'
-import { User } from '@/src/generated/cliet';
+import { User } from '@/src/generated/client';
 import Search from '@/app/ui/search';
 import { currentUser } from '@clerk/nextjs/server';
 import { notFound } from 'next/navigation';

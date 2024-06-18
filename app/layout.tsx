@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { montserrat } from "./ui/fonts";
 import { ClerkProvider } from '@clerk/nextjs';
-
 import "./globals.css";
 
 export const metadata: Metadata = {

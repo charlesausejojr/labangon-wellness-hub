@@ -15,7 +15,7 @@ import {
   } from "@/components/ui/popover";
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { updateEvent } from '@/lib/actions';
-import { Event } from '@/src/generated/cliet'
+import { Event } from '@/src/generated/client'
 import { toast , Toaster} from "sonner";
 
 function EditForm(
@@ -34,8 +34,8 @@ function EditForm(
         await updateEvent(formData);
     }
 
-    const [date, setDate] = useState(event?.date);
-    const eventTime = format(event?.date, 'hh:mm:ss') 
+    const [date, setDate] = useState(event?.startDate);
+    const eventTime = format(event?.startDate, 'hh:mm:ss') 
     return (
         <form action={(formData) => {
             const promise = handleSubmit(formData);

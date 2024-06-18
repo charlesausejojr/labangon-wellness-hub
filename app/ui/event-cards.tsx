@@ -1,5 +1,5 @@
 import React from 'react'
-import { Event } from '@/src/generated/cliet'
+import { Event } from '@/src/generated/client'
 import Link from 'next/link'
 import { CalendarIcon } from '@heroicons/react/24/outline'
 import { format } from "date-fns"
@@ -11,7 +11,7 @@ function EventCards(
 ) {
 
   // Sort events by date
-  events.sort((a, b) => a.date.getTime() - b.date.getTime())
+  events.sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
 
   return (
     <div className='overflow-y-auto w-full no-scrollbar'>
@@ -27,8 +27,8 @@ function EventCards(
                 <p className="hidden md:block">{event.title}</p>
               </div>
               <div className='flex'>
-                {event.date > new Date() ? 
-                  <span className='text-emerald-700'>{format(event.date,'MMMM do, yyy')}</span>   :
+                {event.startDate > new Date() ? 
+                  <span className='text-emerald-700'>{format(event.startDate,'MMMM do, yyy')}</span>   :
                   <span className='text-rose-700'>Event Finished</span>}
               </div>
             </Link>

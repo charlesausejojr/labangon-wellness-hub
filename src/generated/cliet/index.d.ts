@@ -2125,7 +2125,8 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
-    date: Date | null
+    startDate: Date | null
+    endDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     creatorId: string | null
@@ -2135,7 +2136,8 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
-    date: Date | null
+    startDate: Date | null
+    endDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     creatorId: string | null
@@ -2145,7 +2147,8 @@ export namespace Prisma {
     id: number
     title: number
     description: number
-    date: number
+    startDate: number
+    endDate: number
     createdAt: number
     updatedAt: number
     creatorId: number
@@ -2157,7 +2160,8 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    date?: true
+    startDate?: true
+    endDate?: true
     createdAt?: true
     updatedAt?: true
     creatorId?: true
@@ -2167,7 +2171,8 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    date?: true
+    startDate?: true
+    endDate?: true
     createdAt?: true
     updatedAt?: true
     creatorId?: true
@@ -2177,7 +2182,8 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    date?: true
+    startDate?: true
+    endDate?: true
     createdAt?: true
     updatedAt?: true
     creatorId?: true
@@ -2260,7 +2266,8 @@ export namespace Prisma {
     id: string
     title: string
     description: string | null
-    date: Date
+    startDate: Date
+    endDate: Date
     createdAt: Date
     updatedAt: Date
     creatorId: string | null
@@ -2287,7 +2294,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    date?: boolean
+    startDate?: boolean
+    endDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     creatorId?: boolean
@@ -2300,7 +2308,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    date?: boolean
+    startDate?: boolean
+    endDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     creatorId?: boolean
@@ -2311,7 +2320,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    date?: boolean
+    startDate?: boolean
+    endDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     creatorId?: boolean
@@ -2336,7 +2346,8 @@ export namespace Prisma {
       id: string
       title: string
       description: string | null
-      date: Date
+      startDate: Date
+      endDate: Date
       createdAt: Date
       updatedAt: Date
       creatorId: string | null
@@ -2765,7 +2776,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Event", 'String'>
     readonly title: FieldRef<"Event", 'String'>
     readonly description: FieldRef<"Event", 'String'>
-    readonly date: FieldRef<"Event", 'DateTime'>
+    readonly startDate: FieldRef<"Event", 'DateTime'>
+    readonly endDate: FieldRef<"Event", 'DateTime'>
     readonly createdAt: FieldRef<"Event", 'DateTime'>
     readonly updatedAt: FieldRef<"Event", 'DateTime'>
     readonly creatorId: FieldRef<"Event", 'String'>
@@ -3170,7 +3182,8 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     description: 'description',
-    date: 'date',
+    startDate: 'startDate',
+    endDate: 'endDate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     creatorId: 'creatorId'
@@ -3357,7 +3370,8 @@ export namespace Prisma {
     id?: StringFilter<"Event"> | string
     title?: StringFilter<"Event"> | string
     description?: StringNullableFilter<"Event"> | string | null
-    date?: DateTimeFilter<"Event"> | Date | string
+    startDate?: DateTimeFilter<"Event"> | Date | string
+    endDate?: DateTimeFilter<"Event"> | Date | string
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
     creatorId?: StringNullableFilter<"Event"> | string | null
@@ -3369,7 +3383,8 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    date?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     creatorId?: SortOrderInput | SortOrder
@@ -3384,7 +3399,8 @@ export namespace Prisma {
     NOT?: EventWhereInput | EventWhereInput[]
     title?: StringFilter<"Event"> | string
     description?: StringNullableFilter<"Event"> | string | null
-    date?: DateTimeFilter<"Event"> | Date | string
+    startDate?: DateTimeFilter<"Event"> | Date | string
+    endDate?: DateTimeFilter<"Event"> | Date | string
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
     creatorId?: StringNullableFilter<"Event"> | string | null
@@ -3396,7 +3412,8 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    date?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     creatorId?: SortOrderInput | SortOrder
@@ -3412,7 +3429,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Event"> | string
     title?: StringWithAggregatesFilter<"Event"> | string
     description?: StringNullableWithAggregatesFilter<"Event"> | string | null
-    date?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    startDate?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     creatorId?: StringNullableWithAggregatesFilter<"Event"> | string | null
@@ -3521,7 +3539,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    date: Date | string
+    startDate: Date | string
+    endDate: Date | string
     createdAt: Date | string
     updatedAt?: Date | string
     creator?: UserCreateNestedOneWithoutCreatedEventsInput
@@ -3532,7 +3551,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    date: Date | string
+    startDate: Date | string
+    endDate: Date | string
     createdAt: Date | string
     updatedAt?: Date | string
     creatorId?: string | null
@@ -3543,7 +3563,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creator?: UserUpdateOneWithoutCreatedEventsNestedInput
@@ -3554,7 +3575,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creatorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -3565,7 +3587,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    date: Date | string
+    startDate: Date | string
+    endDate: Date | string
     createdAt: Date | string
     updatedAt?: Date | string
     creatorId?: string | null
@@ -3575,7 +3598,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3584,7 +3608,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creatorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -3782,7 +3807,8 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    date?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     creatorId?: SortOrder
@@ -3792,7 +3818,8 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    date?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     creatorId?: SortOrder
@@ -3802,7 +3829,8 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    date?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     creatorId?: SortOrder
@@ -4131,7 +4159,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    date: Date | string
+    startDate: Date | string
+    endDate: Date | string
     createdAt: Date | string
     updatedAt?: Date | string
     creator?: UserCreateNestedOneWithoutCreatedEventsInput
@@ -4141,7 +4170,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    date: Date | string
+    startDate: Date | string
+    endDate: Date | string
     createdAt: Date | string
     updatedAt?: Date | string
     creatorId?: string | null
@@ -4156,7 +4186,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    date: Date | string
+    startDate: Date | string
+    endDate: Date | string
     createdAt: Date | string
     updatedAt?: Date | string
     attendees?: UserCreateNestedManyWithoutAttendedEventsInput
@@ -4166,7 +4197,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    date: Date | string
+    startDate: Date | string
+    endDate: Date | string
     createdAt: Date | string
     updatedAt?: Date | string
     attendees?: UserUncheckedCreateNestedManyWithoutAttendedEventsInput
@@ -4205,7 +4237,8 @@ export namespace Prisma {
     id?: StringFilter<"Event"> | string
     title?: StringFilter<"Event"> | string
     description?: StringNullableFilter<"Event"> | string | null
-    date?: DateTimeFilter<"Event"> | Date | string
+    startDate?: DateTimeFilter<"Event"> | Date | string
+    endDate?: DateTimeFilter<"Event"> | Date | string
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
     creatorId?: StringNullableFilter<"Event"> | string | null
@@ -4368,7 +4401,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    date: Date | string
+    startDate: Date | string
+    endDate: Date | string
     createdAt: Date | string
     updatedAt?: Date | string
   }
@@ -4377,7 +4411,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creator?: UserUpdateOneWithoutCreatedEventsNestedInput
@@ -4387,7 +4422,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creatorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4397,7 +4433,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creatorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4407,7 +4444,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     attendees?: UserUpdateManyWithoutAttendedEventsNestedInput
@@ -4417,7 +4455,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     attendees?: UserUncheckedUpdateManyWithoutAttendedEventsNestedInput
@@ -4427,7 +4466,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

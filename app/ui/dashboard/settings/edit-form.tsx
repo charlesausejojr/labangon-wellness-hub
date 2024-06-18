@@ -13,7 +13,7 @@ import {
 import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import { CalendarIcon } from '@heroicons/react/24/outline';
-import { User } from '@/src/generated/cliet';
+import { User } from '@/src/generated/client';
 import { updateDBUser } from '@/lib/actions';
 
 function EditForm(

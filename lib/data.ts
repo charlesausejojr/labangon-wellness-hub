@@ -70,7 +70,7 @@ export async function fetchEvents() {
         const events = await prisma.event.findMany({
             orderBy: [ 
                 {
-                    date: 'asc',
+                    startDate: 'asc',
                 }
             ],
             include: {
@@ -259,7 +259,7 @@ export async function fetchAttendedEvents() {
             const userDB = await prisma.user.create({
                 data : {
                     id: user?.id,
-                    externalId: user?.externalId || "",
+                    externalId: user?.externalId || randomUUID(),
                     firstName: user?.firstName || "",
                     lastName: user?.lastName || "",
                     email: user?.emailAddresses[0].emailAddress || "",

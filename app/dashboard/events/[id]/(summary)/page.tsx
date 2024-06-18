@@ -34,9 +34,12 @@ async function Page({ params }: { params: { id: string } }) {
         notFound();
     }
 
-    const eventDate = event?.date || new Date();
-    const formattedDate = format(eventDate, "MMMM do yyyy, hh:mm a");
-    const fromNow = getDaysToNow(eventDate);
+    const eventStartDate = event?.startDate || new Date();
+    const eventEndDate = event?.endDate || new Date();
+    const formattedDate = format(eventStartDate, "MMMM do yyyy");
+    const start = format(eventStartDate, "hh:mm a")
+    const end = format(eventEndDate, "hh:mm a")
+    const fromNow = getDaysToNow(eventStartDate);
 
     const isUserRegistered = await isUserRegisteredToEvent(eventId);
     const isAuthor = event?.creatorId == user?.id;
@@ -50,7 +53,7 @@ async function Page({ params }: { params: { id: string } }) {
                         {event?.title}
                     </p>
                     <span className='flex text-sm'>
-                        {formattedDate}  
+                        {formattedDate} {start} - {end} 
                     </span>
                     {fromNow != null ? 
                         <span className='text-emerald-700'>{" "}{fromNow.charAt(0).toUpperCase() + fromNow.slice(1)}</span>  :

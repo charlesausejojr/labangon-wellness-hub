@@ -36,7 +36,8 @@ model Event {
   id          String   @id @default(uuid())
   title       String
   description String?
-  date        DateTime
+  startDate   DateTime
+  endDate     DateTime
   createdAt   DateTime
   updatedAt   DateTime @updatedAt
   creator     User?    @relation("EventCreator", fields: [creatorId], references: [id])

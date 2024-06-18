@@ -1,4 +1,4 @@
-import { PrismaClient } from '@/src/generated/cliet';
+import { PrismaClient } from '@/src/generated/client';
 
 interface CustomNodeJsGlobal {
   prisma: PrismaClient;

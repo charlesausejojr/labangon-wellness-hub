@@ -1,7 +1,8 @@
 import { fetchAdminOrFacilitator, fetchAttendedEvents, fetchEvents } from '@/lib/data';
-import { Event } from '@/src/generated/cliet';
+import { Event } from '@/src/generated/client';
 import React from 'react'
 import EventCards from '../../ui/event-cards';
+import Scheduler from '@/app/ui/dashboard/scheduler';
 import { currentUser } from '@clerk/nextjs/server';
 
 async function Page() {
@@ -10,8 +11,8 @@ async function Page() {
     const createdEvents = events.filter((event) => event.creatorId == user?.id);
     const isAdminOrFacilitator = await fetchAdminOrFacilitator();
     const attendedEvents = await fetchAttendedEvents() ;
-    const upcomingEvents = events.filter((event) => event.date > new Date());
-    
+    const upcomingEvents = events.filter((event) => event.startDate > new Date());
+
     return (
         <div className='flex flex-col'>
             <p className='text-lg font-bold mb-4'>Dashboard</p>
@@ -33,6 +34,7 @@ async function Page() {
                     </div>
                 </div>
             </div>
+            <Scheduler/>
         </div>
     )
 }

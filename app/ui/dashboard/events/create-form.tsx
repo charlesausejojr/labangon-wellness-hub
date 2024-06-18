@@ -20,18 +20,42 @@ import { toast , Toaster} from "sonner";
 function CreateForm() {
 
     const handleSubmit = async (formData:FormData) : Promise<void> =>  {
-        const hour = Number(formData.get("time")?.toString().split(":")[0]) || 0;
-        const min = Number(formData.get("time")?.toString().split(":")[1]) || 0;
+        const startDate = date;
+        const endDate = date;
 
-        date.setHours(hour,min);
-        const formattedDate = date.toISOString();
+        const startHour = Number(formData.get("startTime")?.toString().split(":")[0]) || 0;
+        const startMin = Number(formData.get("startTime")?.toString().split(":")[1]) || 0;
+
+        const endHour = Number(formData.get("endTime")?.toString().split(":")[0]) || 0;
+        const endMin = Number(formData.get("endTime")?.toString().split(":")[1]) || 0;
+        
+        console.log(startHour,startMin)
+        console.log(endHour,endMin)
+        console.log("START",startDate)
+        console.log("END",endDate)
+
+        startDate.setHours(startHour,startMin);
+        const formattedStartDate = startDate.toISOString();
+
+        endDate.setHours(endHour,endMin);
+        const formattedEndDate = endDate.toISOString();
+
+
+        console.log("START",formattedStartDate)
+        console.log("END",formattedEndDate)
+
+        console.log(format(formattedStartDate,'MMMM do yyyy, hh:mm:ss a'));
+        console.log(format(formattedEndDate,'MMMM do yyyy, hh:mm:ss a'));
+
+        formData.append("startDate",formattedStartDate);
+        formData.append("endDate",formattedEndDate);
 
         // console.log(date);
         // console.log(formattedDate);
         // console.log(format(formattedDate,'MMMM do yyyy, hh:mm:ss a'));
 
-        formData.append("date",formattedDate);
-        await createEvent(formData);
+
+        // await createEvent(formData);
     }
     const [date, setDate] = useState(new Date());
     return (
@@ -114,16 +138,32 @@ function CreateForm() {
                 </div>
                 <div className='block w-full my-2'>
                     <label
-                        htmlFor='time'
+                        htmlFor='startTime'
                         className='my-2 block text-sm font-medium'
                     >
-                        Time
+                        Start Time
                     </label>
                     <input 
-                        id="time"
-                        name="time"
+                        id="startTime"
+                        name="startTime"
                         className="p-3 peer w-[240px] block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        aria-label="time" 
+                        aria-label="startTime" 
+                        type="time" 
+                        required={true}
+                    /> 
+                </div>
+                <div className='block w-full my-2'>
+                    <label
+                        htmlFor='endTime'
+                        className='my-2 block text-sm font-medium'
+                    >
+                        End Time
+                    </label>
+                    <input 
+                        id="endTime"
+                        name="endTime"
+                        className="p-3 peer w-[240px] block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        aria-label="endTime" 
                         type="time" 
                         required={true}
                     /> 

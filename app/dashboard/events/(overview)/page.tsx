@@ -3,7 +3,7 @@ import { fetchEvents, fetchAdminOrFacilitator, fetchEventsByQuery} from '@/lib/d
 import Link from 'next/link';
 import { LinkIcon } from '@heroicons/react/16/solid';
 import { CreateEvent } from '@/app/ui/dashboard/events/buttons';
-import { Event } from '@/src/generated/cliet';
+import { Event } from '@/src/generated/client';
 import { useUser } from '@clerk/nextjs';
 import Search from '@/app/ui/search';
 import { CalendarIcon } from '@heroicons/react/24/outline';

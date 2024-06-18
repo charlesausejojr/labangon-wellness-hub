@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { fetchDBUser } from '@/lib/data'
 import EditForm from '@/app/ui/dashboard/settings/edit-form';
 import { notFound } from 'next/navigation';
-import { User } from '@/src/generated/cliet';
+import { User } from '@/src/generated/client';
 
 async function Page() {
     const dbUser : User = await fetchDBUser();

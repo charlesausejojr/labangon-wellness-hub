@@ -20,7 +20,7 @@ import {
 import { fetchUsers } from '@/lib/data'
 import { useState } from "react"
 import { UserIcon } from "@heroicons/react/24/outline"
-import { User } from "@/src/generated/cliet"
+import { User } from "@/src/generated/client"
 import Link from "next/link"
 import { updateUserRole } from "@/lib/actions";
 import { toast } from "sonner";

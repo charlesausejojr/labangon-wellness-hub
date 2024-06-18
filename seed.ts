@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client'
+// need to regenerate output for seed.ts to use
+import { PrismaClient } from '../node_modules/.prisma/client';
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 
 const prisma = new PrismaClient();
@@ -13,20 +14,23 @@ async function main() {
     let title = "";
     let description = "";
     let date = new Date(); 
-    let dbList = [];
+    let endDate = new Date();
     const start = new Date();
     const end = new Date(2025, 1, 1);
     const createdAt = new Date();
     for (let i = 0; i < 10; i++) {
         title = uniqueNamesGenerator(customConfig); 
         description = uniqueNamesGenerator(customConfig); 
-        date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+        date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+        endDate = new Date(date.getTime())
+        endDate.setHours(date.getHours() + (Math.random() * 3));
         try {
             await prisma.event.create({
                 data: {
                     title: title,
                     description: description,
-                    date: date,
+                    startDate: date,
+                    endDate: endDate,
                     createdAt: createdAt,
                     creator: {
                         connect : {
@@ -34,8 +38,8 @@ async function main() {
                         }
                     },
                 }
-            });
-            console.log(title, description, date);
+            }); 
+            console.log(title, description, date.getHours(), endDate.getHours());
         } catch (error) {
             console.log(error);
         }
