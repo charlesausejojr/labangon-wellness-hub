@@ -2,7 +2,7 @@
 // need to regenerate output for seed.ts to use in dev
 // import { PrismaClient } from '../node_modules/.prisma/client';
 // to disable prod errors
-import { PrismaClient } from '../node_modules/.prisma/client';
+import { PrismaClient } from '../src/generated/client';
 import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
 
 const prisma = new PrismaClient();
