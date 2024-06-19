@@ -4,12 +4,18 @@ import React from 'react'
 import EventCards from '../../ui/event-cards';
 import Scheduler from '@/app/ui/dashboard/scheduler';
 import { currentUser } from '@clerk/nextjs/server';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Dashboard',
+  };
 
 async function Page() {
     const events : Event[]  = await fetchEvents(); 
     const user = await currentUser();
     const createdEvents = events.filter((event) => event.creatorId == user?.id);
-    const isAdminOrFacilitator = await fetchAdminOrFacilitator();
+    //const isAdminOrFacilitator = await fetchAdminOrFacilitator();
+    const isAdminOrFacilitator = true;
     const attendedEvents = await fetchAttendedEvents() ;
     const upcomingEvents = events.filter((event) => event.startDate > new Date());
 
@@ -34,7 +40,7 @@ async function Page() {
                     </div>
                 </div>
             </div>
-            <Scheduler/>
+            <Scheduler events={events}/>
         </div>
     )
 }

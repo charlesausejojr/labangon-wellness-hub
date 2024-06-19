@@ -132,7 +132,7 @@ export async function updateEvent(formData: FormData) {
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Missing Fields. Failed to Create Invoice.',
+            message: 'Missing Fields. Failed to Update Event.',
         };
     }
 
@@ -145,7 +145,6 @@ export async function updateEvent(formData: FormData) {
     });
 
     const { title, description, startDate, endDate, id } = validatedFields.data;
-
     try {
         const event = await prisma.event.update({
             where:{
@@ -164,8 +163,8 @@ export async function updateEvent(formData: FormData) {
             message: 'Database Error: Failed to Create Event.',
         };
     }
-    revalidatePath(`/dashboard/events/${id}`);
-    redirect(`/dashboard/events/${id}`);
+    revalidatePath(`/dashboard/`);
+    redirect(`/dashboard/`);
 }
 
 export async function updateUserRole(userId : string, userRole : string){
@@ -313,7 +312,6 @@ export async function updateDBUser(formData : FormData) {
                 birthdate: birthdate,
             }
         });
-        console.log(phoneNumber);
     } catch(error) {
         return {
             message: 'Database Error: Failed to Update User.',

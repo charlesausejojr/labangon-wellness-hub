@@ -23,19 +23,29 @@ function EditForm(
 ) {
 
     const handleSubmit = async (formData:FormData) : Promise<void> =>  {
-        const hour = Number(formData.get("time")?.toString().split(":")[0]) || 0;
-        const min = Number(formData.get("time")?.toString().split(":")[1]) || 0;
+        const startDate = date;
+        const endDate = date;
 
-        date.setHours(hour,min);
-        const formattedDate = date.toISOString();
+        const startHour = Number(formData.get("startTime")?.toString().split(":")[0]) || 0;
+        const startMin = Number(formData.get("startTime")?.toString().split(":")[1]) || 0;
 
-        formData.append("date",formattedDate);
+        const endHour = Number(formData.get("endTime")?.toString().split(":")[0]) || 0;
+        const endMin = Number(formData.get("endTime")?.toString().split(":")[1]) || 0;
+
+        startDate.setHours(startHour,startMin);
+        const formattedStartDate = startDate.toISOString();
+
+        endDate.setHours(endHour,endMin);
+        const formattedEndDate = endDate.toISOString();
+
+        formData.append("startDate",formattedStartDate);
+        formData.append("endDate",formattedEndDate);
         formData.append("id",event?.id);
+
         await updateEvent(formData);
     }
 
     const [date, setDate] = useState(event?.startDate);
-    const eventTime = format(event?.startDate, 'hh:mm:ss') 
     return (
         <form action={(formData) => {
             const promise = handleSubmit(formData);
@@ -118,19 +128,36 @@ function EditForm(
                 </div>
                 <div className='block w-full my-2'>
                     <label
-                        htmlFor='time'
+                        htmlFor='startTime'
                         className='my-2 block text-sm font-medium'
                     >
-                        Time
+                        Start Time
                     </label>
                     <input 
-                        id="time"
-                        name="time"
+                        id="startTime"
+                        name="startTime"
                         className="p-3 peer w-[240px] block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        aria-label="time" 
+                        aria-label="startTime" 
                         type="time" 
                         required={true}
-                        defaultValue={eventTime}
+                        defaultValue={format(event?.startDate, "hh:mm")}
+                    /> 
+                </div>
+                <div className='block w-full my-2'>
+                    <label
+                        htmlFor='endTime'
+                        className='my-2 block text-sm font-medium'
+                    >
+                        End Time
+                    </label>
+                    <input 
+                        id="endTime"
+                        name="endTime"
+                        className="p-3 peer w-[240px] block rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        aria-label="endTime" 
+                        type="time" 
+                        required={true}
+                        defaultValue={format(event?.endDate, "hh:mm")}
                     /> 
                 </div>
             </div>

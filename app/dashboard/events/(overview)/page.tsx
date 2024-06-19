@@ -1,15 +1,21 @@
 import React, { Suspense } from 'react'
-import { fetchEvents, fetchAdminOrFacilitator, fetchEventsByQuery} from '@/lib/data'
-import Link from 'next/link';
-import { LinkIcon } from '@heroicons/react/16/solid';
+import { fetchAdminOrFacilitator, fetchEventsByQuery} from '@/lib/data'
 import { CreateEvent } from '@/app/ui/dashboard/events/buttons';
 import { Event } from '@/src/generated/client';
-import { useUser } from '@clerk/nextjs';
 import Search from '@/app/ui/search';
-import { CalendarIcon } from '@heroicons/react/24/outline';
 import EventCards from '@/app/ui/event-cards';
-import { Skeleton } from '@/components/ui/skeleton';
-import { EventCardsSkeleton } from '@/app/ui/skeletons';
+import { Metadata } from 'next';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+
+export const metadata: Metadata = {
+    title: 'Events',
+  };
 
 async function Page( {
   searchParams,
@@ -29,9 +35,17 @@ async function Page( {
   return (
     <>
     <div className='flex flex-row justify-between items-center'>
-      <div className='mb-4 font-bold text-lg'>
-          Events
-      </div>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/dashboard/events/">Events</BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+    </Breadcrumb>
       {/* If user is ADMIN or FACILITATOR */}
       { isAdminOrFacilitator && 
         <CreateEvent/> }

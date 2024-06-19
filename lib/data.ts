@@ -46,7 +46,7 @@ export async function fetchUsers(){
     const user = await currentUser();
 
     try{
-        const isAdmin = await prisma.user.findUnique({
+        const isAdmin = await prisma.user.findFirst({
             where: {
                 id: user?.id,
                 role: 'ADMIN',
@@ -132,7 +132,6 @@ export async function fetchEventsByQuery(query : string){
 }
 export async function fetchUsersByQuery(query : string){
     noStore();
-    console.log(query)
     try{
         const users = await prisma.user.findMany({
             where : {
@@ -152,7 +151,6 @@ export async function fetchUsersByQuery(query : string){
                 ]
             },
         });
-        console.log(users);
         return users;
     } catch (error) {
         console.error('Database Error:', error);
@@ -163,7 +161,7 @@ export async function fetchUsersByQuery(query : string){
 export async function fetchUserById(userId : string){
     noStore();
     try{
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findFirst({
             where: {
                 id: userId,
             },
@@ -196,7 +194,7 @@ export async function fetchEventById(eventId : string){
 export async function isUserRegisteredToEvent(eventId: string) {
     const user = await currentUser();
      try {
-        const event = await prisma.event.findFirst({
+        const event = await prisma.event.findUnique({
             where: {
                 id: eventId
             },
@@ -245,7 +243,7 @@ export async function fetchAttendedEvents() {
     noStore();
     const user = await currentUser();
     try {
-        const fetchedUser = await prisma.user.findUnique({
+        const fetchedUser = await prisma.user.findFirst({
             where : {
                 id  : user?.id,
             },
@@ -279,7 +277,7 @@ export async function fetchDBUser() {
     noStore();
     const user = await currentUser();
     try {
-        let fetchedUser = await prisma.user.findUnique({
+        let fetchedUser = await prisma.user.findFirst({
             where : {
                 id: user?.id,
             }

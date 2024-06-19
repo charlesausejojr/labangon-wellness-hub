@@ -28,11 +28,6 @@ function CreateForm() {
 
         const endHour = Number(formData.get("endTime")?.toString().split(":")[0]) || 0;
         const endMin = Number(formData.get("endTime")?.toString().split(":")[1]) || 0;
-        
-        console.log(startHour,startMin)
-        console.log(endHour,endMin)
-        console.log("START",startDate)
-        console.log("END",endDate)
 
         startDate.setHours(startHour,startMin);
         const formattedStartDate = startDate.toISOString();
@@ -41,21 +36,10 @@ function CreateForm() {
         const formattedEndDate = endDate.toISOString();
 
 
-        console.log("START",formattedStartDate)
-        console.log("END",formattedEndDate)
-
-        console.log(format(formattedStartDate,'MMMM do yyyy, hh:mm:ss a'));
-        console.log(format(formattedEndDate,'MMMM do yyyy, hh:mm:ss a'));
-
         formData.append("startDate",formattedStartDate);
         formData.append("endDate",formattedEndDate);
 
-        // console.log(date);
-        // console.log(formattedDate);
-        // console.log(format(formattedDate,'MMMM do yyyy, hh:mm:ss a'));
-
-
-        // await createEvent(formData);
+        await createEvent(formData);
     }
     const [date, setDate] = useState(new Date());
     return (
@@ -64,6 +48,7 @@ function CreateForm() {
             toast.promise(promise, {
                 loading: "Creating event...",
                 success: "Event Created!",
+                description: `${format(date,"MMMM do yyyy")}`,
                 error: "Error creating event",});
             }}
         >

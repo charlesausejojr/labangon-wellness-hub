@@ -15,6 +15,13 @@ import { Button } from '@/components/ui/button';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { User } from '@/src/generated/client';
 import { updateDBUser } from '@/lib/actions';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 function EditForm(
     { dbUser } : { dbUser : User}
@@ -39,9 +46,17 @@ function EditForm(
         }}
         >
             <div>
-                <div className='my-3 font-bold text-lg'>
-                    Settings
-                </div>
+                <Breadcrumb className='mb-4'>
+                    <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/dashboard/settings/">Settings</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
                 <hr/>
                 <div className='flex flex-row justify-between gap-4'>
                     <div className='flex-1'>

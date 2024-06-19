@@ -21,6 +21,7 @@ function Loading() {
                 </Skeleton>
             </div>
         </div>
+        <Skeleton className='w-full h-[550px]'/>
     </div>
   )
 }

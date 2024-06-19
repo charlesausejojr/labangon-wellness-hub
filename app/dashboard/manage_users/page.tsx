@@ -5,6 +5,18 @@ import { User } from '@/src/generated/client';
 import Search from '@/app/ui/search';
 import { currentUser } from '@clerk/nextjs/server';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+
+export const metadata: Metadata = {
+    title: 'Manage Users',
+  }; 
 
 async function Page( {
   searchParams,
@@ -40,7 +52,17 @@ async function Page( {
 
   return (
     <div className='overflow-auto no-scrollbar'>
-      <p className='text-lg font-bold mb-4'>Manage Users</p>
+      <Breadcrumb className='mb-4'>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/dashboard/manage_users/">Manage Users</BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+    </Breadcrumb>
       <hr/>
       <Search placeholder='Search user...'/>
       <UserCards users={filteredUsers}/>

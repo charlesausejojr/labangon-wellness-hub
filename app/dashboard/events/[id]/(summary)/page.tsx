@@ -10,6 +10,11 @@ import { notFound } from 'next/navigation';
 import { Toaster, toast } from 'sonner';
 import { register } from 'module';
 import { RegisterToEvent, UnregisterToEvent } from '@/app/ui/dashboard/events/buttons';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Events',
+  };
 
 function getDaysToNow(date : Date) {
     // const momentDate = moment().format(formattedDate);
